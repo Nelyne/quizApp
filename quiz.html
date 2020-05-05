@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+
+<body>
+    <div class="container">
+        <div id="game" class="justify-center flex-column">
+            <div id="h-display">
+                <div id="h-item">
+                    <p class="h-pre"> Question </p>
+                    <h1 class="h-main-text" id="countQuestions">  </h1>
+                </div>
+                <div id="h-item">
+                    <p class="h-pre"> Score </p>
+                    <h1 class="h-main-text" id="score"> 0 </h1>
+                </div>
+            </div>
+            <h2 id="question">What are the answers to these questions</h2>
+            <div class="choice-container">
+                <p class="choice-pre">A</p>
+                <p class="choice-text" data-number="1" id="choice1">choice 1</p>
+            </div>
+            <div class="choice-container">
+                <p class="choice-pre">B</p>
+                <p class="choice-text" data-number="2" id="choice2">choice 2</p>
+            </div>
+            <div class="choice-container">
+                <p class="choice-pre">C</p>
+                <p class="choice-text" data-number="3" id="choice3">choice 3</p>
+            </div>
+            <div class="choice-container">
+                <p class="choice-pre">D</p>
+                <p class="choice-text" data-number="4" id="choice4">choice 4</p>
+            </div>
+            <div class="button">
+                <button type="button" id="Btn"> Next </button>
+        </div>
+        </div>
+        </div>
+        
+    <script src="quiz.js"></script>
+</body>
+</html>

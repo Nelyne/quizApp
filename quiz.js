@@ -5,6 +5,7 @@ const choices = Array.from(document.getElementsByClassName("choice-text"));
 const countQuestionText = document.getElementById("countQuestions");
 const scoresText = document.getElementById("score");
 const nxtButton = document.getElementById("Btn");
+const correctQuestion = document.getElementById("correctAns");
 
 //Assigning variables
 let currQuestions = {};
@@ -16,7 +17,10 @@ let questionChoice2 = document.getElementById("choice2");
 let questionChoice3 = document.getElementById("choice3");
 let questionChoice4 = document.getElementById("choice4");
 let availableQuestions = [];
-
+let selectedAns = undefined;
+let selectedChoice = undefined;
+let classToUse = "";
+let correctAnswer = 0;
 
 //Array of Questions and Choices
 let questions = [
@@ -69,7 +73,7 @@ let questions = [
 
 //Constants needed for quiz app
 
-const correctPoint = 20;
+const correctPoint = 10;
 const maxQuestions = 5;
 
 
@@ -78,11 +82,13 @@ function startQuiz () {
     countQuestions = 0;
     score = 0;
     availableQuestions = [...questions];
+    correctAnswer = 0;
     getNewQuestion();
 }
 
 //function to get new questions
 function getNewQuestion () {
+    selectedAns = undefined;
     if(availableQuestions.length === 0 || countQuestions >= maxQuestions) {
         localStorage.setItem('endScore', score);
         return window.location.assign("finish.html");
@@ -91,6 +97,7 @@ function getNewQuestion () {
     //displays score of correctly answered questions
     countQuestions ++;
     countQuestionText.innerText = `${countQuestions} / ${maxQuestions}`
+    
 
     //randomly selects questions
     const indQuestion = Math.floor(Math.random() * availableQuestions.length);
@@ -113,17 +120,17 @@ choices.forEach(choice =>{
         if(!takeAnswers) return;
 
         takeAnswers = false;
-        const selectedChoice = e.target;
-        const selectedAns = selectedChoice.dataset["number"];
+        selectedChoice = e.target;
+         selectedAns = selectedChoice.dataset["number"];
         
-        const classToUse = selectedAns == currQuestions.answer ? "correct" : "wrong";
+        classToUse = selectedAns == currQuestions.answer ? "correct" : "wrong";
 
         //upates score and gives color to correct and wrong choices
         if(classToUse == "correct"){
             incrScore(correctPoint); 
+            correctAnswer ++;
+            correctQuestion.innerHTML = `${correctAnswer} / ${maxQuestions}`
 
-            
-            
             selectedChoice.parentElement.classList.add(classToUse);
         } else {
             selectedChoice.parentElement.classList.add(classToUse);
@@ -139,21 +146,24 @@ choices.forEach(choice =>{
             }
         }
         
-        setTimeout ( () => {
-            questionChoice1.classList.remove("correct");
-            questionChoice2.classList.remove("correct");
-            questionChoice3.classList.remove("correct");
-            questionChoice4.classList.remove("correct");
-            selectedChoice.parentElement.classList.remove(classToUse);
-           
-        }, 1000);
     })
 })
 
     //activates new question when next button is clicked
     nxtButton.addEventListener('click', (event) => {
+        if(!selectedAns) return;
+                
+        questionChoice1.classList.remove("correct");
+        questionChoice2.classList.remove("correct");
+        questionChoice3.classList.remove("correct");
+        questionChoice4.classList.remove("correct"); 
+        selectedChoice.parentElement.classList.remove(classToUse);
+            
         getNewQuestion();
-    });
+     });
+           
+    
+        
 
     //score increment
     incrScore = num => {

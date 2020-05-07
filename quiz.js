@@ -73,7 +73,7 @@ let questions = [
 
 //Constants needed for quiz app
 
-const correctPoint = 10;
+const correctPoint = 1;
 const maxQuestions = 5;
 
 
@@ -162,10 +162,7 @@ choices.forEach(choice =>{
         getNewQuestion();
      });
            
-    
-        
-
-    //score increment
+     //score increment
     incrScore = num => {
         score += num;
         scoresText.innerText = score;
